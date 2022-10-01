@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://models/mark.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+vertex_color_is_srgb = true
+albedo_color = Color( 0.160784, 0.992157, 0.027451, 1 )
+
+[node name="mark" type="CSGSphere"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00256914, 0, 1.11507 )
+radius = 0.05
+rings = 12
+material = SubResource( 2 )
+script = ExtResource( 1 )
