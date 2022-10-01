@@ -144,7 +144,7 @@ func _import() -> void:
 		_import_wiki_titles(path)
 
 
-func _import_table(table_name: String, path: String, is_mod := false) -> void:
+func _import_table(table_name: String, path: String, is_mod := false) -> Dictionary:
 	# is_mod == true means we are importing a 'mod table'; these modify an
 	# existing table and can add columns or rows or overwrite existing values.
 	assert(table_name and path)
@@ -310,7 +310,8 @@ func _import_table(table_name: String, path: String, is_mod := false) -> void:
 			_tables["prefix_" + table_name] = name_prefix # eg, tables.prefix_planets = "PLAENT_"
 			assert(!_tables.has(name_prefix))
 			_tables[name_prefix] = table_name # eg, tables.PLANET_ = "planets"
-
+	
+	return _tables
 
 func _read_line(table_name: String, row: int, line_array: Array, has_row_names: bool,
 		is_mod: bool) -> void:

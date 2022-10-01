@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://addons/ivoyager/static/widgets.gd"
 }, {
 "base": "Reference",
+"class": "LCDataSet",
+"language": "GDScript",
+"path": "res://addons/tools/dataset.gd"
+}, {
+"base": "Reference",
 "class": "SIBaseUnits",
 "language": "GDScript",
 "path": "res://addons/ivoyager/si_base_units.gd"
@@ -63,6 +68,7 @@ _global_script_class_icons={
 "IVUnits": "",
 "IVUtils": "",
 "IVWidgets": "",
+"LCDataSet": "",
 "SIBaseUnits": ""
 }
 
