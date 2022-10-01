@@ -1,4 +1,4 @@
-extends CSGSphere
+extends Spatial
 
 
 # Declare member variables here. Examples:
@@ -14,3 +14,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func set_color(color=Color(0.92, 1, 1, 1.0)):
+	print("set_color")
+	var newMaterial = SpatialMaterial.new() #Make a new Spatial Material
+	newMaterial.albedo_color = color #Set color of new material
+	$pin.material = newMaterial #Assign new material to material overrride

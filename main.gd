@@ -24,6 +24,33 @@ const LCDataset := preload("res://addons/tools/dataset.gd")
 
 var moonquakes
 
+const DateTime := preload("res://addons/datetime/datetime.gd")
+
+enum EventType {
+	NATURAL_IMPACT,
+	DEEP_MOONQAUKE,
+	SHALLOW,
+	ARTIFICIAL
+}
+
+func get_event_type(event_type):
+	#based on https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-apollo_seismic_event_catalog/data/gagnepian_2006_catalog.xml
+	if event_type == "M":
+		return EventType.NATURAL_IMPACT
+	elif "A" in event_type:
+		return EventType.DEEP_MOONQAUKE
+	elif event_type == "SH":
+		return EventType.SHALLOW
+	else:
+		return EventType.ARTIFICIAL
+
+var colors = {
+	EventType.NATURAL_IMPACT: Color(0.5, 0.5, 0.5, 1),
+	EventType.DEEP_MOONQAUKE: Color(1, 0.5, 0.5, 1),
+	EventType.SHALLOW: Color(0.5, 1, 0.5, 1),
+	EventType.ARTIFICIAL: Color(0.5, 0.5, 1, 1)
+}
+
 func _ready():
 #	add_apollo_locations()
 	
@@ -32,14 +59,21 @@ func _ready():
 	moonquakes.load("res://assets/gagnepian_2006_catalog.csv")
 	
 	for row_idx in moonquakes.data[0].size():
+		
+		var type = get_event_type(moonquakes.data[0][row_idx])
 		var lat = float(moonquakes.data[1][row_idx])
 		var lon = float(moonquakes.data[2][row_idx])
-		print(lat, lon)
+		
+		var depth = float(moonquakes.data[3][row_idx])
+		
+		var date = int(moonquakes.data[4][row_idx])
+		
+		print(type)
 		var pin = Mark.instance()
 		#You could now make changes to the new instance if you wanted
 		
-		pin.translation = spherical_to_cartesian(1, lat, lon)
-		
+		pin.translation = spherical_to_cartesian(1+depth/100, lat, lon)
+		pin.set_color(colors[type])
 		#Attach it to the tree
 		$Moon.add_child(pin)
 	
@@ -67,6 +101,12 @@ static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
 	location.y = r*cos(phi)
 	
 	return location
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+var speed = 24 #hours/sec
+
+var current_time = 0
+
 #func _process(delta):
 #	pass

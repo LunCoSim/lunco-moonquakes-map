@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Reference",
+"class": "DateTime",
+"language": "GDScript",
+"path": "res://addons/datetime/datetime.gd"
+}, {
+"base": "Reference",
 "class": "IVDebug",
 "language": "GDScript",
 "path": "res://addons/ivoyager/static/debug.gd"
@@ -60,6 +65,7 @@ _global_script_classes=[ {
 "path": "res://addons/ivoyager/si_base_units.gd"
 } ]
 _global_script_class_icons={
+"DateTime": "",
 "IVDebug": "",
 "IVEnums": "",
 "IVFiles": "",
