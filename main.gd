@@ -70,6 +70,12 @@ var colors = {
 	EventType.ARTIFICIAL: Color(0.5, 0.5, 1, 1)
 }
 
+var event_types_text = {
+	EventType.NATURAL_IMPACT: "Natural",
+	EventType.DEEP_MOONQAUKE: "Deep",
+	EventType.SHALLOW: "Shallow",
+	EventType.ARTIFICIAL: "Artificial"
+}
 
 func _ready():
 	add_apollo_locations()
@@ -91,9 +97,9 @@ func _ready():
 		var pin = Mark.instance()
 		#You could now make changes to the new instance if you wanted
 		
-		pin.translation = spherical_to_cartesian(1+depth/100, lat, lon)
+		pin.translation = spherical_to_cartesian(1+depth/10000, lat, lon)
 		pin.set_color(colors[type])
-		pin.set_text(date.to_string())
+		pin.set_text(event_types_text[type] + ": " + date.to_string())
 		#Attach it to the tree
 		$Moon.add_child(pin)
 	
