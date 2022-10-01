@@ -6,9 +6,16 @@
 vertex_color_is_srgb = true
 albedo_color = Color( 0.160784, 0.992157, 0.027451, 1 )
 
-[node name="mark" type="CSGSphere"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00256914, 0, 1.11507 )
+[node name="mark" type="Spatial"]
+
+[node name="pin" type="CSGSphere" parent="."]
 radius = 0.05
 rings = 12
 material = SubResource( 2 )
 script = ExtResource( 1 )
+
+[node name="site" type="Label3D" parent="."]
+layers = 6
+cast_shadow = 0
+pixel_size = 0.005
+text = "sfsdfsdfsdf"
