@@ -18,3 +18,7 @@ rings = 40
 
 [node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( -0.99966, 0, -0.0260724, 0, 1, 0, 0.0260724, 0, -0.99966, 0, 0, -6.38122 )
+
+[node name="UI" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
