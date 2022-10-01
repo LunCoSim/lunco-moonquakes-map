@@ -13,3 +13,8 @@ target = NodePath("../Moon")
 
 [node name="Moon" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.994522, 0, 0.104528, 0, 1, 0, -0.104528, 0, 0.994522, 0, 0, 0 )
+radial_segments = 40
+rings = 40
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.868208, 0, 0.496201, 0, 1, 0, -0.496201, 0, -0.868208, 0, 0, -6.38122 )
