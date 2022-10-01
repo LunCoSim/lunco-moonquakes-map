@@ -13,6 +13,7 @@ target = NodePath("../Moon")
 
 [node name="Moon" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.994522, 0, 0.104528, 0, 1, 0, -0.104528, 0, 0.994522, 0, 0, 0 )
+operation = 2
 radial_segments = 40
 rings = 40
 
@@ -22,3 +23,15 @@ transform = Transform( -0.99966, 0, -0.0260724, 0, 1, 0, 0.0260724, 0, -0.99966,
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI"]
+margin_left = 7.0
+margin_top = 8.0
+margin_right = 231.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.447059, 0.196078, 0.196078, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Rotate: RMB or Up/Down/Left/Right
+
+Zoom: -/="
