@@ -82,7 +82,7 @@ func _ready():
 	
 	moonquakes = LCDataSet.new()
 #	moonquakes.load("res://assets/levent.1008weber.csv")
-	moonquakes.load("res://assets/gagnepian_2006_catalog.csv")
+	moonquakes.load("res://assets/gagnepian_2006_catalog.tsv")
 	
 	for row_idx in moonquakes.data[0].size():
 		
