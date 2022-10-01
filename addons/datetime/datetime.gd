@@ -678,3 +678,17 @@ func _get_week_of_year(week_starts_Mon := true) -> int:
 	if wrapi(self.weekday - 6, 0, 6) < first_weekday:
 		week_of_year += 1
 	return week_of_year
+
+func _total_sec():
+	return ((((year-1900)*365 + day)*24 + hour)*60+minute)*60
+	
+static func compare(date_one: DateTime, date_two: DateTime):
+	var date_one_sec = date_one._total_sec()
+	var date_two_sec = date_two._total_sec()
+	
+	if date_one_sec < date_two_sec:
+		return -1
+	elif date_one_sec == date_two_sec:
+		return 0
+	elif date_one_sec > date_two_sec:
+		return 1

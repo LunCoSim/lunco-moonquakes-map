@@ -21,10 +21,11 @@ rings = 40
 transform = Transform( -0.99966, 0, -0.0260724, 0, 1, 0, 0.0260724, 0, -0.99966, 0, 0, -6.38122 )
 
 [node name="UI" type="Control" parent="."]
+margin_top = 1.0
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 41.0
 
-[node name="Label" type="Label" parent="UI"]
+[node name="Help" type="Label" parent="UI"]
 margin_left = 7.0
 margin_top = 8.0
 margin_right = 231.0
@@ -35,3 +36,32 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "Rotate: RMB or Up/Down/Left/Right
 
 Zoom: -/="
+
+[node name="TimeLine" type="HSlider" parent="UI"]
+margin_left = 15.0
+margin_top = 553.0
+margin_right = 1002.0
+margin_bottom = 576.0
+
+[node name="StartTime" type="Label" parent="UI"]
+margin_left = 15.0
+margin_top = 577.0
+margin_right = 100.0
+margin_bottom = 591.0
+text = "Start time:"
+
+[node name="CurrentTime" type="Label" parent="UI"]
+margin_left = 14.0
+margin_top = 535.0
+margin_right = 99.0
+margin_bottom = 549.0
+text = "Current time:"
+
+[node name="EndTime" type="Label" parent="UI"]
+margin_left = 871.0
+margin_top = 570.0
+margin_right = 956.0
+margin_bottom = 584.0
+text = "End time:"
+
+[connection signal="drag_ended" from="UI/TimeLine" to="." method="_on_TimeLine_drag_ended"]

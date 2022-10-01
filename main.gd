@@ -38,7 +38,7 @@ var start_time = DateTime.new()
 var current_time = start_time
 var end_time = DateTime.new()
 
-var speed = 24 #hours/sec
+var speed = 60*5 #hours/sec
 var speed_factor = 1
 
 func get_event_type(event_type: String):
@@ -80,10 +80,15 @@ var event_types_text = {
 
 func _ready():
 	add_apollo_locations()
-	
+	add_moonquakes_locations()
+
+var dates = []
+var marks = []
+
+func add_moonquakes_locations():
 	moonquakes = LCDataSet.new()
-#	moonquakes.load("res://assets/levent.1008weber.csv")
 	moonquakes.load("res://assets/gagnepian_2006_catalog.tsv")
+	
 	
 	for row_idx in moonquakes.data[0].size():
 		
@@ -94,15 +99,22 @@ func _ready():
 		var depth = float(moonquakes.data[3][row_idx])
 		
 		var date = to_datetime(moonquakes.data[4][row_idx])
-	
+		dates.append(date)
+		if row_idx == 0:
+			start_time = date
+		end_time = date	
+		
 		var pin = Mark.instance()
-		#You could now make changes to the new instance if you wanted
 		
 		pin.translation = spherical_to_cartesian(1+depth/10000, lat, lon)
 		pin.set_color(colors[type])
 		pin.set_text(event_types_text[type] + ": " + date.to_string())
+		
 		#Attach it to the tree
 		$Moon.add_child(pin)
+		marks.append(pin)
+	
+	current_time = end_time.add_minutes(0)
 	
 func add_apollo_locations():
 	var r = 1
@@ -132,6 +144,34 @@ static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 
 
+func update_ui():
+	$UI/StartTime.text = "Start time: " + start_time.to_string()
+	$UI/CurrentTime.text = "Current time: " + current_time.to_string()
+	$UI/EndTime.text = "End time: " + end_time.to_string()
+	
+	for idx in marks.size():
+		var res = DateTime.compare(dates[idx], current_time)
+		
+		if res <= 0:
+			marks[idx].visible = true
+		else:
+			marks[idx].visible = false
+	
+	var s = start_time._total_sec()
+	var e = end_time._total_sec()
+	var c = current_time._total_sec()
+	
+	$UI/TimeLine.value = ((c-s)/(e-s))*100
+	
+var counter = 0
 
-#func _process(delta):
-#	pass
+func _process(delta):
+	counter += 1
+#	print(delta*speed*60)
+	current_time = current_time.add_minutes(delta*speed*60)
+	
+	if counter % 5 == 0:
+		update_ui()
+
+func _on_TimeLine_drag_ended(value):
+	print($UI/TimeLine.value)
