@@ -16,6 +16,7 @@ var apollos = {
 			}
 #Load the resourse using preload
 const Mark = preload("res://models/mark.tscn")
+const MarkApollo = preload("res://models/mark_apollo.tscn")
 
 const to_rad = 3.14/180
 
@@ -107,7 +108,7 @@ func add_apollo_locations():
 	var r = 1
 	
 	for key in apollos:
-		var pin = Mark.instance()
+		var pin = MarkApollo.instance()
 #		pin.pin.material.albedo = RGB()
 		#You could now make changes to the new instance if you wanted
 		var loc = apollos[key]
