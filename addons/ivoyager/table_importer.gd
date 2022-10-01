@@ -69,17 +69,28 @@ var data_table_enums := [
 #var _table_import_mods: Dictionary = IVGlobal.table_import_mods
 #var _wiki_titles_import: Array = IVGlobal.wiki_titles_import
 
+var _table_import: Dictionary = {}
+var _table_import_mods: Dictionary = {}
+var _wiki_titles_import: Array = []
+
+
 ## global dicts
 #var _tables: Dictionary = IVGlobal.tables # IVGlobal shared
 #var _table_precisions: Dictionary = IVGlobal.precisions # as _tables for REAL fields
 #var _wiki_titles: Dictionary = IVGlobal.wiki_titles # IVGlobal shared
 #var _enumerations: Dictionary = IVGlobal.enumerations # IVGlobal shared
+
+var _tables: Dictionary = {} # IVGlobal shared
+var _table_precisions: Dictionary = {} # as _tables for REAL fields
+var _wiki_titles: Dictionary = {} # IVGlobal shared
+var _enumerations: Dictionary = {} # IVGlobal shared
+
 #
 ## localization
-#var _enable_wiki: bool = IVGlobal.enable_wiki
-#var _wiki: String = IVGlobal.wiki # wiki column header
-#var _unit_multipliers: Dictionary = IVGlobal.unit_multipliers
-#var _unit_functions: Dictionary = IVGlobal.unit_functions
+var _enable_wiki: bool = false
+var _wiki: String = "wiki"
+var _unit_multipliers: Dictionary = ivunits.MULTIPLIERS
+var _unit_functions: Dictionary = ivunits.FUNCTIONS
 
 # processing
 var _field_infos := {} # [table_name][field] = [type, prefix, unit, default] 
