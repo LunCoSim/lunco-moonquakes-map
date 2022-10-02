@@ -113,10 +113,6 @@ func add_moonquakes_locations():
 	
 	var root = tree.create_item()
 	tree.set_hide_root(true)
-#	var child1 = tree.create_item(root)
-#	var child2 = tree.create_item(root)
-#	var subchild1 = tree.create_item(child1)
-#	subchild1.set_text(0, "Subchild1")
 	
 	for row_idx in moonquakes.data[0].size():
 		
@@ -153,7 +149,6 @@ func add_moonquakes_locations():
 		#Attach it to the tree
 		$Moon.add_child(pin)
 		marks.append(pin)
-	
 	
 	current_time = start_time.add_minutes(0)
 	
@@ -204,6 +199,9 @@ func update_ui():
 func _process(delta):
 	counter += 1
 	
+	if Input.is_action_just_pressed("pause"):
+		_on_Play_pressed()
+			
 	if not paused:
 		current_time = current_time.add_minutes(int(delta*speed))
 		if current_time._total_sec() > end_time._total_sec():

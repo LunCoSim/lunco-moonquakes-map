@@ -8,10 +8,9 @@ vertex_color_is_srgb = true
 albedo_color = Color( 0.160784, 0.992157, 0.027451, 1 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 20
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = true
-use_filter = true
 font_data = ExtResource( 2 )
 
 [node name="mark" type="Spatial"]
@@ -26,10 +25,11 @@ script = ExtResource( 1 )
 [node name="site" type="Label3D" parent="."]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 cast_shadow = 0
-pixel_size = 0.003
+pixel_size = 0.001
 offset = Vector2( 0, -10 )
 billboard = 1
 no_depth_test = true
+alpha_scissor_threshold = 0.0
 text = "sfsdfsdfsdf"
 font = SubResource( 3 )
 width = 200.0
