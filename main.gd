@@ -29,10 +29,10 @@ enum EventType {
 }
 
 var colors = {
-	EventType.NATURAL_IMPACT: Color(0.5, 0.5, 0.5, 1),
-	EventType.DEEP_MOONQAUKE: Color(1, 0.5, 0.5, 1),
-	EventType.SHALLOW: Color(0.5, 1, 0.5, 1),
-	EventType.ARTIFICIAL: Color(0.5, 0.5, 1, 1)
+	EventType.NATURAL_IMPACT: Color(0.13, 0.64, 0.65, 1),
+	EventType.DEEP_MOONQAUKE: Color(0.91, 0.14, 0.14, 1),
+	EventType.SHALLOW: Color(0.25, 0.17, 0.84, 1),
+	EventType.ARTIFICIAL: Color(0.49, 0.44, 0.07, 1)
 }
 
 var event_types_text = {
@@ -53,7 +53,7 @@ var start_time = DateTime.new()
 var current_time = start_time
 var end_time = DateTime.new()
 
-var speed = 60*5*10 #hours/sec
+var speed = 60*5*100 #hours/sec
 var speed_factor = 1
 
 var counter = 0
@@ -135,11 +135,11 @@ func add_moonquakes_locations():
 		
 		dates.append(date)
 		if row_idx == 0:
-			start_time = date
+			start_time = date.add_days(-1)
 			end_time = date
 		
 		if 	date._total_sec() > end_time._total_sec():
-			end_time = date
+			end_time = date.add_days(1)
 		
 		var pin = MarkPin.instance()
 		
@@ -147,13 +147,18 @@ func add_moonquakes_locations():
 		
 		pin.translation = spherical_to_cartesian(1, lat, lon)
 		pin.set_color(colors[type])
-		pin.set_text(event_types_text[type] + ": " + date.to_string())
+		pin.set_text(date.to_string())
 		
 		#Attach it to the tree
 		$Moon.add_child(pin)
 		marks.append(pin)
 	
-	current_time = start_time.add_minutes(0)
+	
+#	0.5*start_time._total_sec()*(1 + )
+	
+	var t = start_time._total_sec() + 0.5*(end_time._total_sec() - start_time._total_sec())
+	
+	current_time = DateTime.from_timestamp(t) 
 	
 func add_apollo_locations():
 	var r = 1
@@ -190,7 +195,7 @@ func update_ui():
 		var m = marks[idx]
 		
 		var dist = m.get_global_transform().origin.distance_to($Camera.pos())
-		if (dist > 1.6) or (dist < 0.5):
+		if (dist > 1.3) or (dist < 0.5):
 			m.pin_visible(false)
 		else:
 			m.pin_visible(true)

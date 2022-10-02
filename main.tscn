@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://addons/lunco-cameras/gimbal-camera/gimbal-camera.tscn" type="PackedScene" id=2]
@@ -11,6 +11,18 @@ size = 50
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.912422, 0.138889, 0.138889, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.126818, 0.638657, 0.652012, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.25098, 0.168627, 0.843137, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.494118, 0.443137, 0.0666667, 1 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -162,6 +174,58 @@ margin_bottom = 37.0
 theme = ExtResource( 4 )
 text = "End time:"
 align = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -368.0
+margin_top = -308.0
+margin_right = -32.0
+margin_bottom = -107.0
+
+[node name="Label5" type="Label" parent="UI/VBoxContainer2"]
+margin_right = 336.0
+margin_bottom = 37.0
+theme = ExtResource( 4 )
+text = "Colors meaning"
+
+[node name="Label" type="Label" parent="UI/VBoxContainer2"]
+margin_top = 41.0
+margin_right = 336.0
+margin_bottom = 78.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/normal = SubResource( 2 )
+text = "Deep Moonquake"
+
+[node name="Label2" type="Label" parent="UI/VBoxContainer2"]
+margin_top = 82.0
+margin_right = 336.0
+margin_bottom = 119.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/normal = SubResource( 3 )
+text = "Natural Impact"
+
+[node name="Label3" type="Label" parent="UI/VBoxContainer2"]
+margin_top = 123.0
+margin_right = 336.0
+margin_bottom = 160.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/normal = SubResource( 4 )
+text = "Shallow Moonquake"
+
+[node name="Label4" type="Label" parent="UI/VBoxContainer2"]
+margin_top = 164.0
+margin_right = 336.0
+margin_bottom = 201.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_styles/normal = SubResource( 5 )
+text = "Artificial Impact"
 
 [connection signal="text_changed" from="UI/Speed" to="." method="_on_Speed_text_changed"]
 [connection signal="pressed" from="UI/VBoxContainer/Play" to="." method="_on_Play_pressed"]
