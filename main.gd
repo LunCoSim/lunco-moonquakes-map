@@ -119,7 +119,10 @@ func add_moonquakes_locations():
 		dates.append(date)
 		if row_idx == 0:
 			start_time = date
-		end_time = date
+			end_time = date
+		
+		if 	date._total_sec() > end_time._total_sec():
+			end_time = date
 		
 		var pin = Mark.instance()
 		
@@ -153,9 +156,9 @@ func add_apollo_locations():
 
 
 func update_ui():
-	$UI/StartTime.text = "Start time: " + start_time.to_string()
-	$UI/CurrentTime.text = "Current time: " + current_time.to_string()
-	$UI/EndTime.text = "End time: " + end_time.to_string()
+	$UI/StartTime.text = "Start: " + start_time.to_string()
+	$UI/CurrentTime.text = "Current: " + current_time.to_string()
+	$UI/EndTime.text = "End: " + end_time.to_string()
 	
 	for idx in marks.size():
 		var res = DateTime.compare(dates[idx], current_time)
@@ -169,7 +172,7 @@ func update_ui():
 	var e = end_time._total_sec()
 	var c = current_time._total_sec()
 	
-	print(c-s)
+#	print(s)
 	
 	if not is_dragging:
 		$UI/TimeLine.value = (float(c-s)/float(e-s))*100
@@ -183,6 +186,8 @@ func _process(delta):
 	
 	if not paused:
 		current_time = current_time.add_minutes(int(delta*speed))
+		if current_time._total_sec() > end_time._total_sec():
+			current_time = end_time.add_seconds(0)
 	
 	if counter % 1 == 0:
 		update_ui()
