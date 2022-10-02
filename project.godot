@@ -83,7 +83,14 @@ _global_script_class_icons={
 config/name="LunCo: Moonquake map"
 config/description="Project made for NASA Space Apps Challenge 2022: Moonquake Map"
 run/main_scene="res://main.tscn"
+boot_splash/show_image=false
 config/icon="res://assets/icon.png"
+
+[display]
+
+window/dpi/allow_hidpi=true
+window/per_pixel_transparency/allowed=true
+window/per_pixel_transparency/enabled=true
 
 [gui]
 
@@ -138,13 +145,9 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/filters/sharpen_intensity=0.5
+quality/driver/driver_name="GLES2"
 quality/driver/fallback_to_gles2=true
 threads/thread_model=2
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-quality/filters/anisotropic_filter_level=16
-quality/spatial_partitioning/render_tree_balance=1.0
-quality/reflections/atlas_size=4096
-quality/filters/use_debanding=true
 environment/default_environment="res://default_env.tres"
