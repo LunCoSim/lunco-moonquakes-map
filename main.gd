@@ -197,6 +197,13 @@ func _process(delta):
 func _on_TimeLine_drag_ended(value):
 	is_dragging = false
 	print($UI/TimeLine.value)
+	
+	var s = start_time._total_sec()
+	var e = end_time._total_sec()
+	var c = (e-s)*($UI/TimeLine.value/100)+s
+	
+	current_time = DateTime.from_timestamp(c)
+
 
 func _on_TimeLine_drag_started():
 	is_dragging = true
