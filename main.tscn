@@ -68,9 +68,9 @@ margin_bottom = 587.0
 text = "End time:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-margin_left = 66.0
+margin_left = 14.0
 margin_top = 477.0
-margin_right = 241.0
+margin_right = 189.0
 margin_bottom = 517.0
 
 [node name="Play" type="Button" parent="UI/HBoxContainer"]
@@ -79,12 +79,21 @@ margin_bottom = 40.0
 text = "Toggle time"
 
 [node name="Speed" type="TextEdit" parent="UI"]
-margin_left = 56.0
-margin_top = 387.0
-margin_right = 209.0
-margin_bottom = 427.0
+margin_left = 121.0
+margin_top = 477.0
+margin_right = 274.0
+margin_bottom = 517.0
+
+[node name="Tree" type="Tree" parent="UI"]
+margin_left = 18.0
+margin_top = 87.0
+margin_right = 337.0
+margin_bottom = 453.0
+columns = 5
+column_titles_visible = true
 
 [connection signal="drag_ended" from="UI/TimeLine" to="." method="_on_TimeLine_drag_ended"]
 [connection signal="drag_started" from="UI/TimeLine" to="." method="_on_TimeLine_drag_started"]
+[connection signal="value_changed" from="UI/TimeLine" to="." method="_on_TimeLine_value_changed"]
 [connection signal="pressed" from="UI/HBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="text_changed" from="UI/Speed" to="." method="_on_Speed_text_changed"]

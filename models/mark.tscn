@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://models/mark.gd" type="Script" id=1]
+[ext_resource path="res://assets/pt-mono/PTM75F.ttf" type="DynamicFontData" id=2]
 
 [sub_resource type="SpatialMaterial" id=2]
 vertex_color_is_srgb = true
 albedo_color = Color( 0.160784, 0.992157, 0.027451, 1 )
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
 
 [node name="mark" type="Spatial"]
 script = ExtResource( 1 )
@@ -22,6 +30,6 @@ pixel_size = 0.003
 offset = Vector2( 0, -10 )
 billboard = 1
 no_depth_test = true
-outline_render_priority = 1
 text = "sfsdfsdfsdf"
+font = SubResource( 3 )
 width = 200.0

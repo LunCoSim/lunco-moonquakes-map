@@ -107,6 +107,15 @@ func add_moonquakes_locations():
 	moonquakes = LCDataSet.new()
 	moonquakes.load("res://assets/gagnepian_2006_catalog.tsv")
 	
+	var tree = $UI/Tree
+	
+	var root = tree.create_item()
+	tree.set_hide_root(true)
+#	var child1 = tree.create_item(root)
+#	var child2 = tree.create_item(root)
+#	var subchild1 = tree.create_item(child1)
+#	subchild1.set_text(0, "Subchild1")
+	
 	for row_idx in moonquakes.data[0].size():
 		
 		var type = get_event_type(moonquakes.data[0][row_idx])
@@ -116,6 +125,15 @@ func add_moonquakes_locations():
 		var depth = float(moonquakes.data[3][row_idx])
 		
 		var date = to_datetime(moonquakes.data[4][row_idx])
+		
+		var subchild = tree.create_item(root)
+		
+		subchild.set_text(0, date.to_string())
+		subchild.set_text(1, String(lat))
+		subchild.set_text(2, String(lon))
+		subchild.set_text(3, String(depth))
+		subchild.set_text(4, event_types_text[type])
+		
 		dates.append(date)
 		if row_idx == 0:
 			start_time = date
@@ -189,21 +207,13 @@ func _process(delta):
 		if current_time._total_sec() > end_time._total_sec():
 			current_time = end_time.add_seconds(0)
 	
-	if counter % 1 == 0:
+	if counter % 5 == 0:
 		update_ui()
 
 #------------------------
 
 func _on_TimeLine_drag_ended(value):
 	is_dragging = false
-	print($UI/TimeLine.value)
-	
-	var s = start_time._total_sec()
-	var e = end_time._total_sec()
-	var c = (e-s)*($UI/TimeLine.value/100)+s
-	
-	current_time = DateTime.from_timestamp(c)
-
 
 func _on_TimeLine_drag_started():
 	is_dragging = true
@@ -213,3 +223,10 @@ func _on_Play_pressed():
 
 func _on_Speed_text_changed():
 	speed = int($UI/Speed.text)
+
+func _on_TimeLine_value_changed(value):
+	var s = start_time._total_sec()
+	var e = end_time._total_sec()
+	var c = (e-s)*($UI/TimeLine.value/100)+s
+	
+	current_time = DateTime.from_timestamp(c)
