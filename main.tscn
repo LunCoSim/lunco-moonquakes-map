@@ -58,10 +58,22 @@ margin_bottom = 549.0
 text = "Current time:"
 
 [node name="EndTime" type="Label" parent="UI"]
-margin_left = 871.0
-margin_top = 570.0
-margin_right = 956.0
-margin_bottom = 584.0
+margin_left = 842.0
+margin_top = 573.0
+margin_right = 927.0
+margin_bottom = 587.0
 text = "End time:"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+margin_left = 66.0
+margin_top = 477.0
+margin_right = 241.0
+margin_bottom = 517.0
+
+[node name="Play" type="Button" parent="UI/HBoxContainer"]
+margin_right = 87.0
+margin_bottom = 40.0
+text = "Toggle time"
+
 [connection signal="drag_ended" from="UI/TimeLine" to="." method="_on_TimeLine_drag_ended"]
+[connection signal="pressed" from="UI/HBoxContainer/Play" to="." method="_on_Play_pressed"]

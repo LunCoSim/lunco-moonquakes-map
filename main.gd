@@ -1,12 +1,8 @@
 extends Node
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 #https://nssdc.gsfc.nasa.gov/planetary/lunar/lunar_sites.html
-var apollos = {
+const apollos = {
 				"Apollo 11": Vector2(0.67416, 23.47314), 
 				"Apollo 12": Vector2(-3.02, -23.42), 
 				"Apollo 14": Vector2(-3.64589, -17.47194),
@@ -14,19 +10,16 @@ var apollos = {
 				"Apollo 16": Vector2(-8.9734, 15.5011),
 				"Apollo 17": Vector2(20.1911, 30.7723)
 			}
-#Load the resourse using preload
-const Mark = preload("res://models/mark.tscn")
-const MarkApollo = preload("res://models/mark_apollo.tscn")
 
 const to_rad = 3.14/180
 
-#const IVTableImporter := preload("res://addons/ivoyager/table_importer.gd")
+#Load the resourse using preload
+const Mark = preload("res://models/mark.tscn")
+const MarkApollo = preload("res://models/mark_apollo.tscn")
 const LCDataset := preload("res://addons/tools/dataset.gd")
-
-var moonquakes
-
 const DateTime := preload("res://addons/datetime/datetime.gd")
 
+#--------------
 enum EventType {
 	NATURAL_IMPACT,
 	DEEP_MOONQAUKE,
@@ -34,12 +27,38 @@ enum EventType {
 	ARTIFICIAL
 }
 
+var colors = {
+	EventType.NATURAL_IMPACT: Color(0.5, 0.5, 0.5, 1),
+	EventType.DEEP_MOONQAUKE: Color(1, 0.5, 0.5, 1),
+	EventType.SHALLOW: Color(0.5, 1, 0.5, 1),
+	EventType.ARTIFICIAL: Color(0.5, 0.5, 1, 1)
+}
+
+var event_types_text = {
+	EventType.NATURAL_IMPACT: "Natural",
+	EventType.DEEP_MOONQAUKE: "Deep",
+	EventType.SHALLOW: "Shallow",
+	EventType.ARTIFICIAL: "Artificial"
+}
+
+#------------------------------------
+
+var moonquakes
+
+var dates = []
+var marks = []
+
 var start_time = DateTime.new()
 var current_time = start_time
 var end_time = DateTime.new()
 
 var speed = 60*5 #hours/sec
 var speed_factor = 1
+
+var counter = 0
+var paused = true
+
+#------------------------------
 
 func get_event_type(event_type: String):
 	#based on https://pds-geosciences.wustl.edu/lunar/urn-nasa-pds-apollo_seismic_event_catalog/data/gagnepian_2006_catalog.xml
@@ -63,32 +82,28 @@ func to_datetime(datetime_str: String):
 	
 	return DateTime.datetime(dt)
 
+static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
+	var location := Vector3.ZERO
+		
+	var phi = phi_degrees*to_rad - 3.14/2
+	var theta = theta_degrees*to_rad
 	
-var colors = {
-	EventType.NATURAL_IMPACT: Color(0.5, 0.5, 0.5, 1),
-	EventType.DEEP_MOONQAUKE: Color(1, 0.5, 0.5, 1),
-	EventType.SHALLOW: Color(0.5, 1, 0.5, 1),
-	EventType.ARTIFICIAL: Color(0.5, 0.5, 1, 1)
-}
-
-var event_types_text = {
-	EventType.NATURAL_IMPACT: "Natural",
-	EventType.DEEP_MOONQAUKE: "Deep",
-	EventType.SHALLOW: "Shallow",
-	EventType.ARTIFICIAL: "Artificial"
-}
+	location.z = r*sin(phi)*cos(theta)
+	location.x = r*sin(phi)*sin(theta)
+	location.y = r*cos(phi)
+	
+	return location
+	
+#=---------------
 
 func _ready():
 	add_apollo_locations()
 	add_moonquakes_locations()
 
-var dates = []
-var marks = []
 
 func add_moonquakes_locations():
 	moonquakes = LCDataSet.new()
 	moonquakes.load("res://assets/gagnepian_2006_catalog.tsv")
-	
 	
 	for row_idx in moonquakes.data[0].size():
 		
@@ -102,7 +117,7 @@ func add_moonquakes_locations():
 		dates.append(date)
 		if row_idx == 0:
 			start_time = date
-		end_time = date	
+		end_time = date
 		
 		var pin = Mark.instance()
 		
@@ -129,19 +144,9 @@ func add_apollo_locations():
 		#Attach it to the tree
 		$Moon.add_child(pin)
 
-static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
-	var location := Vector3.ZERO
-		
-	var phi = phi_degrees*to_rad - 3.14/2
-	var theta = theta_degrees*to_rad
+
 	
-	location.z = r*sin(phi)*cos(theta)
-	location.x = r*sin(phi)*sin(theta)
-	location.y = r*cos(phi)
-	
-	return location
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+#-----------------------
 
 
 func update_ui():
@@ -163,15 +168,23 @@ func update_ui():
 	
 	$UI/TimeLine.value = ((c-s)/(e-s))*100
 	
-var counter = 0
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 
 func _process(delta):
 	counter += 1
-#	print(delta*speed*60)
-	current_time = current_time.add_minutes(delta*speed*60)
+	
+	if not paused:
+		current_time = current_time.add_minutes(delta*speed*60)
 	
 	if counter % 5 == 0:
 		update_ui()
 
+#------------------------
+
 func _on_TimeLine_drag_ended(value):
 	print($UI/TimeLine.value)
+
+func _on_Play_pressed():
+	paused = not paused
