@@ -85,3 +85,6 @@ func _process(delta):
 		
 func set_current():
 	camera.current = true
+
+func pos():
+	return $InnerGimbal/Camera.get_global_transform().origin

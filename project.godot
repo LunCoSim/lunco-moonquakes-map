@@ -59,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/tools/dataset.gd"
 }, {
+"base": "Spatial",
+"class": "Mark",
+"language": "GDScript",
+"path": "res://models/mark.gd"
+}, {
 "base": "Reference",
 "class": "SIBaseUnits",
 "language": "GDScript",
@@ -75,6 +80,7 @@ _global_script_class_icons={
 "IVUtils": "",
 "IVWidgets": "",
 "LCDataSet": "",
+"Mark": "",
 "SIBaseUnits": ""
 }
 

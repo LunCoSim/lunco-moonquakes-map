@@ -16,7 +16,7 @@ font_data = ExtResource( 5 )
 script = ExtResource( 1 )
 
 [node name="Camera" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.999502, 0, -0.0315503, 0, 1, 0, 0.0315503, 0, -0.999502, 0, 0, -2.02287 )
+transform = Transform( -0.999502, 0, -0.0315503, 0, 1, 0, 0.0315503, 0, -0.999502, 0, 0, -4.01146 )
 target = NodePath("../Moon")
 
 [node name="Moon" parent="." instance=ExtResource( 3 )]

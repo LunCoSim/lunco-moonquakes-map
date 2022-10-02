@@ -143,6 +143,8 @@ func add_moonquakes_locations():
 		
 		var pin = MarkPin.instance()
 		
+		pin.visible = false
+		
 		pin.translation = spherical_to_cartesian(1, lat, lon)
 		pin.set_color(colors[type])
 		pin.set_text(event_types_text[type] + ": " + date.to_string())
@@ -162,6 +164,7 @@ func add_apollo_locations():
 		#You could now make changes to the new instance if you wanted
 		var loc = apollos[key]
 		pin.translation = spherical_to_cartesian(r, loc.x, loc.y)
+		pin.rotate(Vector3(1, 0, 0), -3.14/2)
 		pin.set_text(key)
 		#Attach it to the tree
 		$Moon.add_child(pin)
@@ -183,6 +186,15 @@ func update_ui():
 			marks[idx].visible = true
 		else:
 			marks[idx].visible = false
+			
+		var m = marks[idx]
+		
+		var dist = m.get_global_transform().origin.distance_to($Camera.pos())
+		if (dist > 1.6) or (dist < 0.5):
+			m.pin_visible(false)
+		else:
+			m.pin_visible(true)
+			
 	
 	var s = start_time._total_sec()
 	var e = end_time._total_sec()

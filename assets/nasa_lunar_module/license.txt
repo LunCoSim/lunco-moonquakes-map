@@ -1,0 +1,11 @@
+Model Information:
+* title:	Nasa lunar module
+* source:	https://sketchfab.com/3d-models/nasa-lunar-module-c7d5ae92d0ca41dfb3bec26552c5d1cb
+* author:	Vector-3DModels (https://sketchfab.com/elperro0151)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Nasa lunar module" (https://sketchfab.com/3d-models/nasa-lunar-module-c7d5ae92d0ca41dfb3bec26552c5d1cb) by Vector-3DModels (https://sketchfab.com/elperro0151) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
