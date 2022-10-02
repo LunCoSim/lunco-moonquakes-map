@@ -88,6 +88,8 @@ config/icon="res://assets/icon.png"
 
 [display]
 
+window/size/width=2000
+window/size/height=2000
 window/dpi/allow_hidpi=true
 window/per_pixel_transparency/allowed=true
 window/per_pixel_transparency/enabled=true

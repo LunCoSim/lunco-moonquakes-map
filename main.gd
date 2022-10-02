@@ -14,8 +14,9 @@ const apollos = {
 const to_rad = 3.14/180
 
 #Load the resourse using preload
-const Mark = preload("res://models/mark.tscn")
+const MarkPin = preload("res://models/mark_pin.tscn")
 const MarkApollo = preload("res://models/mark_apollo.tscn")
+
 const LCDataset := preload("res://addons/tools/dataset.gd")
 const DateTime := preload("res://addons/datetime/datetime.gd")
 
@@ -52,7 +53,7 @@ var start_time = DateTime.new()
 var current_time = start_time
 var end_time = DateTime.new()
 
-var speed = 60*5 #hours/sec
+var speed = 60*5*10 #hours/sec
 var speed_factor = 1
 
 var counter = 0
@@ -140,11 +141,11 @@ func add_moonquakes_locations():
 		if 	date._total_sec() > end_time._total_sec():
 			end_time = date
 		
-		var pin = Mark.instance()
+		var pin = MarkPin.instance()
 		
-		pin.translation = spherical_to_cartesian(1+depth/10000, lat, lon)
+		pin.translation = spherical_to_cartesian(1, lat, lon)
 		pin.set_color(colors[type])
-		pin.set_text(String(row_idx) + " " +event_types_text[type] + ": " + date.to_string())
+		pin.set_text(event_types_text[type] + ": " + date.to_string())
 		
 		#Attach it to the tree
 		$Moon.add_child(pin)
@@ -190,7 +191,7 @@ func update_ui():
 #	print(s)
 	
 	if not is_dragging:
-		$UI.find_node("TimeLine").value = (float(c-s)/float(e-s))*100
+		$UI.find_node("TimeLine").value = (float(c-s)/float(e-s))*2048
 	
 
 
@@ -227,6 +228,6 @@ func _on_Speed_text_changed():
 func _on_TimeLine_value_changed(value):
 	var s = start_time._total_sec()
 	var e = end_time._total_sec()
-	var c = (e-s)*($UI.find_node("TimeLine").value/100)+s
+	var c = (e-s)*($UI.find_node("TimeLine").value/2048)+s
 	
 	current_time = DateTime.from_timestamp(c)
