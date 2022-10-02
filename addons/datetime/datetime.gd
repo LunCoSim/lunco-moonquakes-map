@@ -680,7 +680,7 @@ func _get_week_of_year(week_starts_Mon := true) -> int:
 	return week_of_year
 
 func _total_sec():
-	return ((((year-1900)*365 + day)*24 + hour)*60+minute)*60
+	return epoch
 	
 static func compare(date_one: DateTime, date_two: DateTime):
 	var date_one_sec = date_one._total_sec()
@@ -690,5 +690,5 @@ static func compare(date_one: DateTime, date_two: DateTime):
 		return -1
 	elif date_one_sec == date_two_sec:
 		return 0
-	elif date_one_sec > date_two_sec:
+	else:
 		return 1

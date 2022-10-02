@@ -57,6 +57,7 @@ var speed_factor = 1
 
 var counter = 0
 var paused = true
+var is_dragging = false
 
 #------------------------------
 
@@ -97,6 +98,7 @@ static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
 #=---------------
 
 func _ready():
+	$UI/Speed.text = String(speed)
 	add_apollo_locations()
 	add_moonquakes_locations()
 
@@ -123,13 +125,14 @@ func add_moonquakes_locations():
 		
 		pin.translation = spherical_to_cartesian(1+depth/10000, lat, lon)
 		pin.set_color(colors[type])
-		pin.set_text(event_types_text[type] + ": " + date.to_string())
+		pin.set_text(String(row_idx) + " " +event_types_text[type] + ": " + date.to_string())
 		
 		#Attach it to the tree
 		$Moon.add_child(pin)
 		marks.append(pin)
 	
-	current_time = end_time.add_minutes(0)
+	
+	current_time = start_time.add_minutes(0)
 	
 func add_apollo_locations():
 	var r = 1
@@ -166,7 +169,10 @@ func update_ui():
 	var e = end_time._total_sec()
 	var c = current_time._total_sec()
 	
-	$UI/TimeLine.value = ((c-s)/(e-s))*100
+	print(c-s)
+	
+	if not is_dragging:
+		$UI/TimeLine.value = (float(c-s)/float(e-s))*100
 	
 
 
@@ -176,15 +182,22 @@ func _process(delta):
 	counter += 1
 	
 	if not paused:
-		current_time = current_time.add_minutes(delta*speed*60)
+		current_time = current_time.add_minutes(int(delta*speed))
 	
-	if counter % 5 == 0:
+	if counter % 1 == 0:
 		update_ui()
 
 #------------------------
 
 func _on_TimeLine_drag_ended(value):
+	is_dragging = false
 	print($UI/TimeLine.value)
+
+func _on_TimeLine_drag_started():
+	is_dragging = true
 
 func _on_Play_pressed():
 	paused = not paused
+
+func _on_Speed_text_changed():
+	speed = int($UI/Speed.text)

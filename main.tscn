@@ -75,5 +75,13 @@ margin_right = 87.0
 margin_bottom = 40.0
 text = "Toggle time"
 
+[node name="Speed" type="TextEdit" parent="UI"]
+margin_left = 56.0
+margin_top = 387.0
+margin_right = 209.0
+margin_bottom = 427.0
+
 [connection signal="drag_ended" from="UI/TimeLine" to="." method="_on_TimeLine_drag_ended"]
+[connection signal="drag_started" from="UI/TimeLine" to="." method="_on_TimeLine_drag_started"]
 [connection signal="pressed" from="UI/HBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="text_changed" from="UI/Speed" to="." method="_on_Speed_text_changed"]
