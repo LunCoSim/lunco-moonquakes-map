@@ -98,10 +98,12 @@ static func spherical_to_cartesian(r, phi_degrees, theta_degrees):
 #=---------------
 
 func _ready():
-	$UI/Speed.text = String(speed)
+	$UI.find_node("Speed").text = String(speed)
 	add_apollo_locations()
 	add_moonquakes_locations()
-
+	
+	$UI.find_node("StartTime").text = "Start: " + start_time.to_string()
+	$UI.find_node("EndTime").text = "End: " + end_time.to_string()
 
 func add_moonquakes_locations():
 	moonquakes = LCDataSet.new()
@@ -174,9 +176,9 @@ func add_apollo_locations():
 
 
 func update_ui():
-	$UI/StartTime.text = "Start: " + start_time.to_string()
-	$UI/CurrentTime.text = "Current: " + current_time.to_string()
-	$UI/EndTime.text = "End: " + end_time.to_string()
+	
+	$UI.find_node("CurrentTime").text = "Current: " + current_time.to_string()
+	
 	
 	for idx in marks.size():
 		var res = DateTime.compare(dates[idx], current_time)
@@ -193,7 +195,7 @@ func update_ui():
 #	print(s)
 	
 	if not is_dragging:
-		$UI/TimeLine.value = (float(c-s)/float(e-s))*100
+		$UI.find_node("TimeLine").value = (float(c-s)/float(e-s))*100
 	
 
 
@@ -222,11 +224,11 @@ func _on_Play_pressed():
 	paused = not paused
 
 func _on_Speed_text_changed():
-	speed = int($UI/Speed.text)
+	speed = int($UI.find_node("Speed").text)
 
 func _on_TimeLine_value_changed(value):
 	var s = start_time._total_sec()
 	var e = end_time._total_sec()
-	var c = (e-s)*($UI/TimeLine.value/100)+s
+	var c = (e-s)*($UI.find_node("TimeLine").value/100)+s
 	
 	current_time = DateTime.from_timestamp(c)
