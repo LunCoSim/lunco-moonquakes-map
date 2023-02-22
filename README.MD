@@ -2,6 +2,9 @@
 
 This repository contains code for Moonquake Map for NASA Space Apps Challenge 2022.
 
+
+**[Web based demo version](https://moonquake.lunco.space/)**
+
 ## Installation
 
 1. This repository uses git-lfs to store binary assets files:
